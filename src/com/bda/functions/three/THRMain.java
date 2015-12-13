@@ -1,33 +1,21 @@
-package com.bda.functions.twoandfour;
+package com.bda.functions.three;
 
-import com.bda.functions.Walker;
-
-import java.io.File;
-import java.net.URI;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 
 import com.bda.functions.WholeFileInputFormat;
-import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.Text;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.mapreduce.Job;
+import com.bda.functions.onetwofour.OTFMapper;
+import com.bda.functions.onetwofour.OTFReducer;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
-import org.apache.hadoop.mapreduce.JobContext;
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.mapreduce.JobContext;
-import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 
-public class TAFMain{
+import static com.bda.functions.Constants.*;
 
-    private static final String baseURIString = "hdfs://localhost:9000";
-    private static final String rootDirectory = "/user/said/";
-    private static final String dataDirectory = "/user/said/Data/";
-    private static final String outputBaseDirectory = "/user/said/Outputs/";
+public class THRMain {
 
     public static void main(String[] args) throws Exception{
         Configuration conf = new Configuration();
@@ -38,19 +26,16 @@ public class TAFMain{
             System.exit(2);
         }
 
-        String functionName = otherArgs[0];
-        conf.set("FunctionName", functionName);
-
         Job job = Job.getInstance(conf);
-        FileSystem dfs = FileSystem.get(URI.create(baseURIString+rootDirectory), conf);
 
-        job.setJarByClass((Class)TAFMain.class);
-        job.setMapperClass((Class)TAFMapper.class);
-        job.setCombinerClass((Class)TAFReducer.class);
-        job.setReducerClass((Class)TAFReducer.class);
+        job.setJarByClass((Class)THRMain.class);
+        job.setMapperClass((Class)THRMapper.class);
+        job.setCombinerClass((Class)THRReducer.class);
+        job.setReducerClass((Class)THRReducer.class);
 
         job.setInputFormatClass(WholeFileInputFormat.class);
 
+        job.setNumReduceTasks(1);
         job.setOutputKeyClass((Class)Text.class);
         job.setOutputValueClass((Class)IntWritable.class);
 
@@ -62,4 +47,3 @@ public class TAFMain{
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
 }
-
