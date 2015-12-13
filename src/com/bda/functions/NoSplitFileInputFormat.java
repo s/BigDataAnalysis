@@ -1,4 +1,4 @@
-package com.bda.functions.twoandfour;
+package com.bda.functions;
 
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapreduce.JobContext;
