@@ -17,7 +17,7 @@ public class Preprocessor {
 
     public Preprocessor(){}
 
-    public static String cleanLine(String text){
+    public static String cleanText(String text){
         String cleanedText = "";
 
         cleanedText = tokenizeURLs(text);

@@ -40,7 +40,7 @@ public class TAFMapper extends org.apache.hadoop.mapreduce.Mapper<Text, BytesWri
 
         }
 
-        String preprocessedText = Preprocessor.cleanLine(rawBody);
+        String preprocessedText = Preprocessor.cleanText(rawBody);
 
         String[] wordsOfText = preprocessedText.split(" ");
         String filePathString = ((FileSplit) context.getInputSplit()).getPath().toString();
