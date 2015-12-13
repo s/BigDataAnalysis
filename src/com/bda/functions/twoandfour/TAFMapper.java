@@ -49,11 +49,16 @@ public class TAFMapper extends org.apache.hadoop.mapreduce.Mapper<Text, BytesWri
         Configuration conf = context.getConfiguration();
         String functionName = conf.get("FunctionName");
 
-        if(functionName.equals("BDAFunctionTwo")){
+
+        if(functionName.equals("BDAFunctionOne")){
+            context.write(new Text(personName), one);
+        }
+        else if(functionName.equals("BDAFunctionTwo")){
             for (String aString: wordsOfText){
                 context.write(new Text(personName), one);
             }
-        }else{
+        }
+        else if(functionName.equals("BDAFunctionFour")){
             for (String aString: wordsOfText){
                 context.write(new Text(aString), one);
             }
