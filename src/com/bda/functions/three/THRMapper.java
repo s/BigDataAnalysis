@@ -8,11 +8,11 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 import org.apache.hadoop.mapreduce.Mapper;
 
+import static com.bda.functions.Constants.*;
+
 import java.io.IOException;
 
 public class THRMapper extends Mapper<Text, BytesWritable, Object, IntWritable>{
-
-    private static final IntWritable intWritableOne = new IntWritable(1);
 
     public void map(Text key, BytesWritable value, Context context) throws IOException, InterruptedException {
 

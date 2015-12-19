@@ -1,16 +1,17 @@
 package com.bda.functions.three;
 
-
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.Text;
+import java.util.*;
 import java.util.HashMap;
 import java.io.IOException;
+
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Reducer;
-import java.util.*;
+
+import static com.bda.functions.Constants.*;
 
 public class THRReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 
-    private static final Integer numberOfWordsToTake = 30;
     private Map<String, Map> allPersonsWordsMap = new HashMap<>();
 
     public void reduce(Text key, Iterable<IntWritable> values, Context context)
@@ -43,7 +44,7 @@ public class THRReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
             for(Text key: sortedMap.keySet()){
                 if (processedCount>=numberOfWordsToTake)
                     break;
-                
+
                 context.write(key, sortedMap.get(key));
                 processedCount++;
             }

@@ -10,12 +10,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import static com.bda.functions.Constants.*;
+
 public class Helper {
 
     public Helper(){}
 
     public static String getPersonNameFromPath(String path){
-        return path.split("Data/")[1].split("/")[0];
+        return path.split(dataDirectoryName+"/")[1].split("/")[0];
     }
 
     public static String[] getWordsOfAMailText(BytesWritable mailBody){
